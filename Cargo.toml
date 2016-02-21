@@ -1,0 +1,10 @@
+[package]
+name = "level_generator_proto"
+version = "0.1.0"
+authors = ["Alexander <alexander@kuvaev.me>"]
+
+[dependencies]
+sdl2 = "^0.12"
+rand = "^0.3"
+tile_engine = {git = "https://github.com/Vinatorul/tileengine-rs"}
+chrono = "^0.2"
