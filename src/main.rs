@@ -5,6 +5,7 @@ extern crate chrono;
 
 mod visualizer;
 mod game;
+mod level_generator;
 
 use sdl2::event::Event;
 use visualizer::Visualizer;
@@ -35,15 +36,16 @@ fn main() {
 
     let mut events = ctx.event_pump().unwrap();
     let mut game = Game::default();
+    game.generate_level(&[1, 2, 3, 4]);
     let mut visualizer = Visualizer::new(renderer);
     // loop until we receive a QuitEvent
     'event : loop {
-        //for event in events.poll_iter() {
-            //match event {
-                //Event::Quit{..} => break 'event,
-                //_               => game.proc_event(event),
-            //}
-        //}
+        for event in events.poll_iter() {
+            match event {
+                Event::Quit{..} => break 'event,
+                _               => game.proc_event(event),
+            }
+        }
         let ms = (UTC::now() - last_tick).num_milliseconds();
         last_tick = UTC::now();
         lag = lag + ms;
