@@ -11,9 +11,11 @@ const DN_ALLOW_FULL_FROM: u32 = 3;
 // Split chance dec per recursion level starting from DN_ALLOW_FULL_FROM
 const DN_SPLIT_CHANCE_DEC: u32 = 30;
 // Split coeff in percents
-const DN_SPLIT_COEFF: u32 = 80;
+const DN_SPLIT_COEFF: u32 = 70;
 // Default split chance
 const DN_DEFAULT_CHANCE: u32 = 100;
+// Min size splittable
+const DN_MIN_SP_SIZE: u32 = 150;
 
 #[derive(Default, Clone, Copy, Debug)]
 struct SubDungeon {
@@ -59,21 +61,21 @@ pub fn generate_level(tile_engine: &mut TileEngine, seed: &[usize], w: u32, h: u
             }
             sp = sp - (deep - DN_ALLOW_FULL_FROM + 1)*DN_SPLIT_CHANCE_DEC;
         }
+        let w = dungeon[i].width;
+        let h = dungeon[i].height;
         // will it be splited, or not?
-        let b = rng.gen_range(0, 100) < sp;
+        let b = ((w > DN_MIN_SP_SIZE) || (h > DN_MIN_SP_SIZE)) && (rng.gen_range(0, 100) < sp);
         if b {
             // How fair will be split
             let coef = rng.gen_range(100 - DN_SPLIT_COEFF, DN_SPLIT_COEFF);
             let x1 = dungeon[i].x;
             let y1 = dungeon[i].y;
-            let w = dungeon[i].width;
-            let h = dungeon[i].height;
             let mut x2 = x1;
             let mut y2 = y1;
             let mut w1 = w;
             let mut h1 = h;
             // Split vertical or not
-            if rng.gen_range(0, 2) == 1 {
+            if (w > DN_MIN_SP_SIZE) && (rng.gen_range(0, 2) == 1) {
                 x2 = x1 + w*coef/100;
                 w1 = x2 - x1;
             }
