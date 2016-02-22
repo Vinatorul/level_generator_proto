@@ -23,11 +23,11 @@ impl<'a> Visualizer<'a> {
         //let player_rect = Rect::new(game.player.x(lag), game.player.y(lag), game.player.width, game.player.height).unwrap().unwrap();
         //let _ = self.renderer.draw_rect(player_rect);
 
-        //let _ = self.renderer.set_draw_color(Color::RGB(255, 0, 0));
-        //for i in &game.obstacles {
-            //let obst_rect = Rect::new(i.x(), i.y(), i.width, i.height).unwrap().unwrap();
-            //let _ = self.renderer.draw_rect(obst_rect);
-        //}
+        let _ = self.renderer.set_draw_color(Color::RGB(255, 0, 0));
+        for i in game.tiles.get_tiles(0., 0., 800, 600, 1).iter() {
+            let obst_rect = Rect::new(i[0], i[1], i[2] as u32, i[3] as u32).unwrap().unwrap();
+            let _ = self.renderer.draw_rect(obst_rect);
+        }
 
         let _ = self.renderer.present();
     }

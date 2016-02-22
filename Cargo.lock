@@ -82,7 +82,7 @@ dependencies = [
 [[package]]
 name = "tile_engine"
 version = "0.1.0"
-source = "git+https://github.com/Vinatorul/tileengine-rs#5f5624b9bf79e3a16a50926e5457e8985e74ea07"
+source = "git+https://github.com/Vinatorul/tileengine-rs#107d6bb552a0214d18617b02221629cc56c639bd"
 
 [[package]]
 name = "time"

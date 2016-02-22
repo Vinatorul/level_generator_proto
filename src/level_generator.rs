@@ -11,7 +11,7 @@ const DN_ALLOW_FULL_FROM: u32 = 3;
 // Split chance dec per recursion level starting from DN_ALLOW_FULL_FROM
 const DN_SPLIT_CHANCE_DEC: u32 = 30;
 // Split coeff in percents
-const DN_SPLIT_COEFF: u32 = 90;
+const DN_SPLIT_COEFF: u32 = 80;
 // Default split chance
 const DN_DEFAULT_CHANCE: u32 = 100;
 
@@ -83,8 +83,14 @@ pub fn generate_level(tile_engine: &mut TileEngine, seed: &[usize], w: u32, h: u
             }
             dungeon.push(SubDungeon::new(x1, y1, w1, h1, deep+1, Some(i)));
             dungeon.push(SubDungeon::new(x2, y2, w-(x2-x1), h-(y2-y1), deep+1, Some(i)));
+            dungeon[i].childs = Some([dungeon.len()-2, dungeon.len()-1]);
             queue.push_back(dungeon.len()-2);
             queue.push_back(dungeon.len()-1);
+        }
+    }
+    for d in dungeon.iter() {
+        if d.childs.is_none() {
+            tile_engine.add_tile(d.x as f64, d.y as f64, d.width as i32, d.height as i32, 1);
         }
     }
     print!("{:?}", dungeon);
