@@ -25,8 +25,19 @@ impl<'a> Visualizer<'a> {
 
         let _ = self.renderer.set_draw_color(Color::RGB(255, 0, 0));
         for i in game.tiles.get_tiles(0., 0., 800, 600, 1).iter() {
-            let obst_rect = Rect::new(i[0], i[1], i[2] as u32, i[3] as u32).unwrap().unwrap();
-            let _ = self.renderer.draw_rect(obst_rect);
+            let rect = Rect::new(i[0], i[1], i[2] as u32, i[3] as u32).unwrap().unwrap();
+            let _ = self.renderer.draw_rect(rect);
+        }
+
+        let _ = self.renderer.set_draw_color(Color::RGB(0, 0, 255));
+        for i in game.tiles.get_tiles(0., 0., 800, 600, 2).iter() {
+            let rect = Rect::new(i[0], i[1], i[2] as u32, i[3] as u32).unwrap().unwrap();
+            let _ = self.renderer.draw_rect(rect);
+        }
+        let _ = self.renderer.set_draw_color(Color::RGB(0, 255, 0));
+        for i in game.tiles.get_tiles(0., 0., 800, 600, 3).iter() {
+            let rect = Rect::new(i[0], i[1], i[2] as u32, i[3] as u32).unwrap().unwrap();
+            let _ = self.renderer.draw_rect(rect);
         }
 
         let _ = self.renderer.present();

@@ -2,7 +2,7 @@ use tile_engine::{TileEngine, TileRect};
 use rand::{SeedableRng, StdRng, Rng};
 use std::collections::VecDeque;
 
-pub type Room = [i32; 4];
+pub type Room = [u32; 4];
 
 // Max recursion deep
 const DN_MAX_DEEP: u32 = 5;
@@ -48,6 +48,7 @@ pub fn generate_level(tile_engine: &mut TileEngine, seed: &[usize], w: u32, h: u
     dungeon.push(SubDungeon::new(0, 0, w, h, 0, None));
     let mut queue = VecDeque::<usize>::new();
     queue.push_back(0);
+    // generating subdungeons
     while !queue.is_empty() {
         // current index in queue
         let i = queue.pop_front().unwrap();
@@ -90,11 +91,44 @@ pub fn generate_level(tile_engine: &mut TileEngine, seed: &[usize], w: u32, h: u
             queue.push_back(dungeon.len()-1);
         }
     }
+    let mut rooms = Vec::<Room>::new();
+    queue.clear();
     for d in dungeon.iter() {
         if d.childs.is_none() {
             tile_engine.add_tile(d.x as f64, d.y as f64, d.width as i32, d.height as i32, 1);
+            // generation rooms
+            let room_w = rng.gen_range(d.width/2, 4*d.width/5 - d.width/20);
+            let room_h = rng.gen_range(d.height/2, 4*d.height/5 - d.height/20);
+            let room_x = rng.gen_range(d.x + d.width/20, d.x + d.width - room_w - d.width/20);
+            let room_y = rng.gen_range(d.y + d.height/20, d.y + d.height - room_h - d.height/20);
+            tile_engine.add_tile(room_x as f64, room_y as f64, room_w as i32, room_h as i32, 2);
+            rooms.push([room_x, room_y, room_w, room_h]);
+            // push parent to generate corridor
+            queue.push_back(d.parent.unwrap());
         }
     }
-    print!("{:?}", dungeon);
-    Vec::<Room>::new()
+    while !queue.is_empty() {
+        let p = dungeon[queue.pop_front().unwrap()];
+        if let Some(pp) = p.parent {
+            queue.push_back(pp);
+        }
+        let (ch1, ch2) = (dungeon[p.childs.unwrap()[0]], dungeon[p.childs.unwrap()[1]]);
+        let mut room = [0,0,0,0];
+        if ch1.x != ch2.x {
+            room[0] = ch1.x + ch1.width/2;
+            room[1] = ((ch1.y*2 + ch1.height)/2 + (ch2.y*2 + ch2.height)/2)/2;
+            room[2] = ch2.x - ch1.x + ch2.width/2 - ch1.width/2;
+            room[3] = 10;
+        }
+        else {
+            room[0] = ((ch1.x*2 + ch1.width)/2 + (ch2.x*2 + ch2.width)/2)/2;
+            room[1] = ch1.y + ch1.height/2;
+            room[2] = 10;
+            room[3] = ch2.y - ch1.y + ch2.height/2 - ch1.height/2;
+        }
+        tile_engine.add_tile(room[0] as f64, room[1] as f64, room[2] as i32, room[3] as i32, 3);
+    }
+    //print!("{:?}", dungeon);
+    //print!("{:?}", rooms);
+    rooms
 }
