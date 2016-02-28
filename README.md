@@ -1,6 +1,8 @@
 # Level generation algorithm
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Vinatorul/level_generator_proto/blob/master/LICENSE)
 
+## Algorithm moved to [Dungeon Generator](https://github.com/Vinatorul/dungeon-generator-rs)
+
 ### About
 
 This project is for presentation and debugging dungeon generation algorithm.
