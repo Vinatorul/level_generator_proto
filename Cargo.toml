@@ -7,4 +7,5 @@ authors = ["Alexander <alexander@kuvaev.me>"]
 sdl2 = "^0.12"
 rand = "^0.3"
 tile_engine = {git = "https://github.com/Vinatorul/tileengine-rs"}
+dungeon-generator = {git = "https://github.com/Vinatorul/dungeon-generator-rs.git"}
 chrono = "^0.2"

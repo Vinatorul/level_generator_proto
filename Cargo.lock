@@ -3,6 +3,7 @@ name = "level_generator_proto"
 version = "0.1.0"
 dependencies = [
  "chrono 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
+ "dungeon-generator 0.1.0 (git+https://github.com/Vinatorul/dungeon-generator-rs.git)",
  "rand 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
  "sdl2 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "tile_engine 0.1.0 (git+https://github.com/Vinatorul/tileengine-rs)",
@@ -20,6 +21,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "num 0.1.31 (registry+https://github.com/rust-lang/crates.io-index)",
  "time 0.1.34 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "dungeon-generator"
+version = "0.1.0"
+source = "git+https://github.com/Vinatorul/dungeon-generator-rs.git#0d5037bdbcb920a5b1c0c12619848c3e570407fd"
+dependencies = [
+ "rand 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
