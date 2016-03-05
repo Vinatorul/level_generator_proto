@@ -1,4 +1,4 @@
-use tile_engine::TileEngine;
+use tile_engine::{TileEngine, TileType};
 use sdl2::event::Event;
 use dungeon_generator::{BSPGenerator, Room, DungeonGenerator, RoomType};
 
@@ -24,8 +24,8 @@ impl Game {
         self.rooms = BSPGenerator::default().generate(seed, TEMP_WIDTH, TEMP_HEIGHT);
         for room in self.rooms.iter() {
             match room.room_type {
-                RoomType::BasicRoom => self.tiles.add_tile(room.x as f64, room.y as f64, room.width as i32, room.height as i32, 2),
-                RoomType::Coridor => self.tiles.add_tile(room.x as f64, room.y as f64, room.width as i32, room.height as i32, 3),
+                RoomType::BasicRoom => self.tiles.add_tile(room.x as i32, room.y as i32, room.width, room.height, 2, TileType::Floor, 1),
+                RoomType::Coridor => self.tiles.add_tile(room.x as i32, room.y as i32, room.width, room.height, 3, TileType::Floor, 1),
                 _ => unreachable!(),
             }
         }

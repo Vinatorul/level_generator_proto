@@ -26,7 +26,7 @@ dependencies = [
 [[package]]
 name = "dungeon-generator"
 version = "0.1.0"
-source = "git+https://github.com/Vinatorul/dungeon-generator-rs.git#0d5037bdbcb920a5b1c0c12619848c3e570407fd"
+source = "git+https://github.com/Vinatorul/dungeon-generator-rs.git#6de8a5b0e885bd1f73b273332771c508740f5fb9"
 dependencies = [
  "rand 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -91,7 +91,7 @@ dependencies = [
 [[package]]
 name = "tile_engine"
 version = "0.1.0"
-source = "git+https://github.com/Vinatorul/tileengine-rs#107d6bb552a0214d18617b02221629cc56c639bd"
+source = "git+https://github.com/Vinatorul/tileengine-rs#b0219b9a9e605a6b30627a62ef96a76772e15ada"
 
 [[package]]
 name = "time"
