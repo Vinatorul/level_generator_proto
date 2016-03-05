@@ -35,7 +35,7 @@ fn main() {
     };
 
     let mut events = ctx.event_pump().unwrap();
-    let mut game = Game::default();
+    let mut game = Game::new();
     game.generate_level(&[1, 2, 3, 4]);
     let mut visualizer = Visualizer::new(renderer);
     // loop until we receive a QuitEvent
